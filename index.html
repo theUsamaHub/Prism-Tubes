@@ -1,1 +1,14 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#111329"/><title>Prism Tubes</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#eae7d8"/><title>Prism Tubes</title>
+<link rel="icon" type="image/png" sizes="64x64" href="%BASE_URL%assets/branding/favicon-64.png"/>
+<link rel="apple-touch-icon" sizes="192x192" href="%BASE_URL%assets/branding/game-icon-192.png"/>
+<link rel="preload" as="image" href="%BASE_URL%assets/branding/game-icon-192.png"/>
+<style>
+html,body{margin:0;background:#eae7d8}#boot-screen{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 35%,#fff9e7,#e2e9d6);color:#25554a;font-family:'Trebuchet MS',Arial,sans-serif}#boot-screen img{width:160px;height:160px;border-radius:28px;box-shadow:0 10px 30px #224d3920}#boot-screen h1{font-size:24px;margin:0;letter-spacing:2px}#boot-screen p{font-size:13px;margin:0;color:#73816b}.boot-track{width:120px;height:4px;background:#cad8bf;border-radius:10px;overflow:hidden}.boot-track:after{content:'';display:block;width:40%;height:100%;background:#398775;border-radius:10px;animation:boot-slide .8s ease-in-out infinite alternate}#boot-retry{padding:10px 20px;border:0;border-radius:10px;background:#326d5c;color:white;cursor:pointer}@keyframes boot-slide{to{transform:translateX(180%)}}@media(prefers-reduced-motion:reduce){.boot-track:after{animation:none;width:100%}}
+</style></head><body>
+<div id="boot-screen" role="status" aria-live="polite"><img src="%BASE_URL%assets/branding/game-icon-192.png" width="160" height="160" alt="Prism Tubes glass marble artwork" fetchpriority="high"/><h1>PRISM TUBES</h1><div class="boot-track" aria-hidden="true"></div><p id="boot-message">Getting your puzzle ready…</p><button id="boot-retry" hidden onclick="location.reload()">Reload game</button><noscript>This game needs JavaScript enabled.</noscript></div>
+<div id="root"></div>
+<script>window.prismBootStarted=performance.now();window.prismBootTimeout=setTimeout(function(){var message=document.getElementById('boot-message');if(message){message.textContent='Still loading. Check your connection or try again.';document.getElementById('boot-retry').hidden=false;}},10000);</script>
+<script type="module" src="/src/main.jsx"></script></body></html>
