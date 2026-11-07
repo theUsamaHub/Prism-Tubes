@@ -17,3 +17,9 @@ Six rule tests passed. Production build passed with the existing large-chunk war
 Added a count-up clock (no countdown or star penalty), persistent elapsed time, thicker layered glass tubes, a win ribbon/confetti with reduced-motion support, and original Web Audio effects with a saved sound toggle. Sound initializes after interaction and stops when paused/hidden. Clock pauses in menus and on completion, and resets on restart/new level.
 
 The six existing puzzle-rule tests pass. Build verification covers compilation only; actual listening, timer lifecycle, and rendered celebration/tube checks still require browser playtesting.
+
+## Completion rewards
+
+Added a dedicated results panel with animated stars, custom coin artwork, crystal reward, collection progress, saved coin total, and Continue action. First wins award 30 coins plus 10 per new star. Replays award only star improvements; old saves migrate their previously earned balance. Completion records and coin balances save together. Tab hiding after completion no longer replaces results with the pause screen.
+
+Ten automated tests pass, including first rewards, replay/reload duplicate prevention, improved-star rewards, old-save migration, and cross-level accumulation. Production build passes with the existing bundle-size warning. Visual results-screen inspection and browser interaction remain unverified. Coins are saved currency; a cosmetic shop is still pending.
