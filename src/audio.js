@@ -37,20 +37,27 @@ export function sound(kind){
  if(kind==='win'){tone(261.63,now,.8,.07);tone(392,now+.21,.65,.045);tone(1318.5,now+.42,.65,.035);}
 }
 
-// A quiet original 32-second ambient loop, generated once and reused.
+// Original 128 BPM arcade loop with bass, arpeggio and percussion.
 let musicSource,musicBus,musicBuffer,musicEnabled=true,musicPaused=false;
 function makeMusic(){
- const rate=22050,duration=32,buffer=context.createBuffer(2,rate*duration,rate);
- const chords=[[130.81,164.81,196],[110,130.81,164.81],[87.31,110,130.81],[98,123.47,146.83]];
+ const rate=22050,beat=60/128,duration=beat*32,length=Math.round(rate*duration),buffer=context.createBuffer(2,length,rate);
+ const roots=[130.81,110,87.31,98],melody=[0,7,12,7,4,7,12,16];
  for(let channel=0;channel<2;channel++){
-  const data=buffer.getChannelData(channel);
-  for(let sample=0;sample<data.length;sample++){
-   const t=sample/rate,bar=Math.floor(t/8),local=t%8;
-   const envelope=Math.sin(Math.PI*local/8)**2;
-   let value=0;for(const frequency of chords[bar]){value+=Math.sin(2*Math.PI*frequency*t+channel*.12)*.025*envelope;value+=Math.sin(2*Math.PI*frequency*2*t)*.006*envelope;}
-   const beat=Math.floor(local/1),age=local%1,note=chords[bar][beat%3]*4;
-   value+=Math.sin(2*Math.PI*note*age)*Math.exp(-age*5)*Math.min(1,age*100)*.023;
-   data[sample]=value;
+  const data=buffer.getChannelData(channel);let seed=731+channel;
+  for(let sample=0;sample<length;sample++){
+   const t=sample/rate,beatIndex=Math.floor(t/beat),age=t%beat,halfAge=t%(beat/2),chord=Math.floor(beatIndex/8)%4;
+   const root=roots[chord],note=root*2*Math.pow(2,melody[Math.floor(t/(beat/2))%8]/12);
+   const attack=Math.min(1,halfAge/.006),pluck=Math.exp(-halfAge*13)*attack;
+   let value=(Math.sin(2*Math.PI*note*halfAge)+.2*Math.sin(4*Math.PI*note*halfAge))*pluck*.055;
+   const bass=root/2*(beatIndex%4===3?1.5:1),gate=Math.min(1,age/.008)*Math.exp(-age*6);
+   value+=(Math.sin(2*Math.PI*bass*age)+.18*Math.sin(4*Math.PI*bass*age))*gate*.09;
+   // Four-on-the-floor kick, offbeat hi-hat and backbeat snare.
+   value+=Math.sin(2*Math.PI*(48*age+2.6*(1-Math.exp(-age*35))))*Math.exp(-age*18)*Math.min(1,age/.002)*.19;
+   seed=(Math.imul(seed,1664525)+1013904223)>>>0;const noise=seed/4294967296*2-1;
+   value+=noise*Math.exp(-halfAge*100)*Math.min(1,halfAge/.001)*.025;
+   if(beatIndex%2===1)value+=(noise*.055+Math.sin(2*Math.PI*180*age)*.025)*Math.exp(-age*28)*Math.min(1,age/.002);
+   // Short boundary fades prevent clicks at the loop join.
+   const edge=Math.min(1,t/.005,(duration-t)/.005);data[sample]=value*edge;
   }
  }
  return buffer;
@@ -61,5 +68,5 @@ function syncMusic(){
  if(musicEnabled&&!musicPaused&&!document.hidden&&!musicSource){musicBuffer??=makeMusic();musicSource=context.createBufferSource();musicSource.buffer=musicBuffer;musicSource.loop=true;musicSource.connect(musicBus);musicSource.start();}
  musicBus.gain.setTargetAtTime(musicEnabled&&!musicPaused&&!document.hidden?.45:0,context.currentTime,.15);
 }
-export function setMusic(value){musicEnabled=value;syncMusic();}
+export function setMusic(value){musicEnabled=value;if(value)unlockAudio();syncMusic();}
 export function pauseMusic(value){musicPaused=value;syncMusic();}

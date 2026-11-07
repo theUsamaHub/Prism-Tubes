@@ -47,3 +47,9 @@ All 39 tests and the production build pass. Browser visual checks and end-to-end
 Added an original 32-second synthesized ambient loop with independent saved music control. Music starts after interaction, continues across levels and menus, and fades out while paused or hidden. Pickup, placement, and completion effects have increased levels. Rendering now uses an explicitly scaled canvas/camera up to 2x device density (Phaser 3.90 does not expose a resolution config), filtered 128px textures downsampled from 512px artwork, and simpler wider candy swirls to reduce aliasing.
 
 Existing 39 gameplay/reward/shop tests pass. Actual listening balance and high-density rendering/input behavior still need browser/device verification.
+
+## Garden pagination and upbeat soundtrack
+
+Replaced the garden scrolling grid with six crystals per page, previous/next controls, and viewport-sized layout including a short-landscape variant. Changed music to an original 128 BPM loop with kick, snare, hi-hat, bass, and arpeggio. Music-on explicitly initializes/resumes audio and attempts playback immediately; fresh-page autoplay still depends on browser permission. Music now continues through in-game menus (including pause) and fades out when hidden, following the user's always-on preference.
+
+Production build passes. Browser layout and listening checks are still pending.
