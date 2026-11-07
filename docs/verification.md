@@ -29,3 +29,9 @@ Ten automated tests pass, including first rewards, replay/reload duplicate preve
 Ball textures now use a 512px canvas with linear filtering and no dark outline. The pause menu is a compact panel over the blurred board, with level/move/time statistics, Resume, Restart, sound, and symbol settings. Campaign expanded to 30 frozen layouts, retaining the first five, with three to six colors and distinct symbols. Seeded reverse-shuffle tooling lives in scripts/generate-levels.mjs.
 
 All 36 tests pass, covering each solution witness, exact color counts, unique tube-order-normalized boards, and reward behavior. Automated solvability does not establish perceived difficulty: difficulty pacing, visual quality, later-level mobile layouts, and menu interaction still require browser playtesting. Full 150-level scope remains pending.
+
+## Glass marble and layered audio pass
+
+Replaced enamel textures with cached, procedurally shaded glass-marble textures: spherical lighting, rim reflection, refracted color, curved highlights, and lower-edge light. Added layered glass resonance, soft placement impacts, subtle pitch variation, short convolution ambience, and a fuller win cadence. Audio includes a compressor, voice cap, repeat-rate guard, mute, and pause/visibility silencing.
+
+Production build and 36 existing gameplay/reward tests pass. These checks do not verify perceived realism or sound quality; browser visual inspection and listening remain pending. New artwork and audio are generated locally and introduce no external asset licenses.

@@ -1,22 +1,18 @@
 import Phaser from 'phaser';
+import {drawMarble} from './marble';
 
 export const COLORS=[0xe76539,0x259c9b,0xe6b537,0x4279c5,0x8baf50,0xd67e9c];
 export class Board extends Phaser.Scene {
  constructor(bridge){super('board');this.bridge=bridge;}
  create(){this.bridge.scene=this;this.paint();this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
  orb(x,y,r,c,symbols){
-  const key=`enamel-${c}`;
+  const key=`glass-marble-${c}`;
   if(!this.textures.exists(key)){
-   const texture=this.textures.createCanvas(key,512,512),ctx=texture.context;ctx.scale(3.2,3.2);
-   const shades=[['#ffd1a1','#ef8250','#d3512f','#883222'],['#a5efdb','#40b7ac','#188381','#125759'],['#fff1ad','#ecc64d','#c59122','#84601c'],['#d3edff','#77b0e5','#3a77ba','#254b80'],['#e8f2b8','#b1c96b','#759744','#456432'],['#ffe1e7','#e9a8b5','#c87492','#8e4d6c']][c];
-   ctx.beginPath();ctx.arc(80,80,72,0,Math.PI*2);
-   const fill=ctx.createRadialGradient(55,43,6,86,88,86);
-   fill.addColorStop(0,shades[0]);fill.addColorStop(.35,shades[1]);fill.addColorStop(.78,shades[2]);fill.addColorStop(1,shades[3]);
-   ctx.fillStyle=fill;ctx.fill();
-   ctx.beginPath();ctx.ellipse(55,37,17,8,-.5,0,Math.PI*2);ctx.fillStyle='rgba(255,255,242,.65)';ctx.fill();
+   const texture=this.textures.createCanvas(key,512,512);
+   drawMarble(texture.context,512,COLORS[c]);
    texture.refresh();texture.setFilter(Phaser.Textures.FilterMode.LINEAR);
   }
-  const shadow=this.add.ellipse(2,r*.91,r*1.75,r*.42,0x173f39,.18);
+  const shadow=this.add.ellipse(2,r*.91,r*1.5,r*.25,0x173f39,.22);
   const ball=this.add.image(0,0,key).setDisplaySize(r*2.22,r*2.22);
   const items=[shadow,ball];
   if(symbols){const mark=this.add.graphics();mark.lineStyle(Math.max(2,r*.095),0xfff8dc,.94);const d=r*.22;
