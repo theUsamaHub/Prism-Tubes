@@ -27,8 +27,8 @@ export class Board extends Phaser.Scene {
   }
   return this.add.container(x,y,items);
  }
- paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const density=this.bridge.density||1;const w=this.scale.width/density,h=this.scale.height/density;const {cols,rows,gap,th,r}=boardLayout(w,h,board.length),tw=r*2+22;this.positions=[];this.topOrbs=[];this.tubeVisuals=[];
- board.forEach((tube,i)=>{const visualStart=this.children.list.length;const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+90))/2+62+row*(th+90);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
+ paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const density=this.bridge.density||1;const w=this.scale.width/density,h=this.scale.height/density;const {cols,rows,gap,th,r,rowHeight,top}=boardLayout(w,h,board.length),tw=r*2+22;this.positions=[];this.topOrbs=[];this.tubeVisuals=[];
+ board.forEach((tube,i)=>{const visualStart=this.children.list.length;const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=top+row*rowHeight;this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
  g.fillStyle(0x76a79b,.18);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);
  g.fillStyle(0xffffff,.28);g.fillRoundedRect(x-tw/2+6,y+5,tw-12,th-12,(tw-12)/2);
  g.lineStyle(3,selected===i?0xcc8a29:complete?0x398b76:0x70978c,.9);

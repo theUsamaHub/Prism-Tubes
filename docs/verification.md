@@ -71,3 +71,9 @@ Loader now displays actual completion of four milestones: artwork decode, game-m
 Removed gameplay minimum heights that forced portal scrolling. The board flexes within the iframe; compact-height HUD and controls reserve room for the puzzle. Tube layout chooses rows/columns using both dimensions and fits tube length to ball radius. Pause layout also has a compact-height variant.
 
 Verified the production build in headless Microsoft Edge at 1166x594, 800x450, 360x640, 390x844 and 640x360: no page scrolling, all tested gameplay buttons within bounds, no JavaScript errors. Inspected final screenshots at 360x640 and 800x450. Numeric results are in reports/embedded-layout.json. Tests cover initial gameplay layout, not every menu, level or device; CrazyGames portal re-upload testing is still needed. Production build and all 69 existing automated tests pass.
+
+## Selected-ball clearance and louder audio
+
+Layout now budgets headroom from ball radius, including the six-pixel bob and transfer arc, rather than using a fixed top offset. Added a layout regression test for 5–9 tubes across five board sizes. Raised music gain from 0.45 to 0.75 and effect bus gain from 0.65 to 0.9; pickup and completion voices also have increased strength, retaining the effect compressor.
+
+70 tests and production build pass. Headless Edge successfully selected a ball at five viewport sizes with no JavaScript errors or page scrolling; controls remain in bounds. Inspected selected-ball screenshots at 800x450 and 390x844: the raised ball is fully visible. Results in reports/selected-ball-layout.json. Perceived audio loudness still needs listening on actual devices.

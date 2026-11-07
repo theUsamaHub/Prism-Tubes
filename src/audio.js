@@ -6,7 +6,7 @@ export function unlockAudio(){
   if(!context){
    context=new(window.AudioContext||window.webkitAudioContext)();
    const compressor=context.createDynamicsCompressor();compressor.threshold.value=-18;compressor.knee.value=12;compressor.ratio.value=4;
-   master=context.createGain();master.gain.value=enabled?.65:0;master.connect(compressor);compressor.connect(context.destination);
+   master=context.createGain();master.gain.value=enabled?.9:0;master.connect(compressor);compressor.connect(context.destination);
    reverb=context.createConvolver();const impulse=context.createBuffer(2,Math.floor(context.sampleRate*.42),context.sampleRate);
    let seed=723;for(let channel=0;channel<2;channel++){const data=impulse.getChannelData(channel);for(let i=0;i<data.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;data[i]=(seed/4294967296*2-1)*Math.pow(1-i/data.length,4)*.35;}}
    reverb.buffer=impulse;const wet=context.createGain();wet.gain.value=.16;reverb.connect(wet);wet.connect(master);
@@ -26,14 +26,14 @@ function tone(frequency,start,duration,volume,type='sine',endFrequency=frequency
 function glass(note,start,strength=1){tone(note,start,.26,.10*strength);tone(note*2.76,start,.095,.023*strength);tone(note*5.4,start,.035,.006*strength);}
 export function sound(kind){
  if(!enabled||!context||context.state!=='running'||document.hidden)return;
- const now=context.currentTime;if(now-lastAt<.035||active.size>40)return;lastAt=now;master.gain.setTargetAtTime(.65,now,.008);
+ const now=context.currentTime;if(now-lastAt<.035||active.size>40)return;lastAt=now;master.gain.setTargetAtTime(.9,now,.008);
  const pitch=[1,1.025,.985,1.012][variation++%4];
- if(kind==='select'){glass(880*pitch,now,.9);return;}
+ if(kind==='select'){glass(880*pitch,now,1.05);return;}
  if(kind==='place'){tone(260*pitch,now,.10,.24,'sine',135*pitch);glass(1160*pitch,now+.008,1.05);return;}
  if(kind==='invalid'){tone(170,now,.10,.055,'sine',140);return;}
  if(kind==='undo'){glass(740,now,.48);glass(554,now+.075,.38);return;}
  const notes=kind==='win'?[523.25,659.25,783.99,1046.5]:[659.25,783.99,1046.5];
- notes.forEach((n,i)=>glass(n,now+i*.105,kind==='win'?1.05:1.2));
+ notes.forEach((n,i)=>glass(n,now+i*.105,kind==='win'?1.4:1.3));
  if(kind==='win'){tone(261.63,now,.8,.07);tone(392,now+.21,.65,.045);tone(1318.5,now+.42,.65,.035);}
 }
 
@@ -66,7 +66,7 @@ function syncMusic(){
  if(!context||context.state!=='running')return;
  if(!musicBus){musicBus=context.createGain();musicBus.gain.value=0;musicBus.connect(context.destination);}
  if(musicEnabled&&!musicPaused&&!document.hidden&&!musicSource){musicBuffer??=makeMusic();musicSource=context.createBufferSource();musicSource.buffer=musicBuffer;musicSource.loop=true;musicSource.connect(musicBus);musicSource.start();}
- musicBus.gain.setTargetAtTime(musicEnabled&&!musicPaused&&!document.hidden?.45:0,context.currentTime,.15);
+ musicBus.gain.setTargetAtTime(musicEnabled&&!musicPaused&&!document.hidden?.75:0,context.currentTime,.15);
 }
 export function setMusic(value){musicEnabled=value;if(value)unlockAudio();syncMusic();}
 export function pauseMusic(value){musicPaused=value;syncMusic();}
