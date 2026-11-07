@@ -5,3 +5,9 @@
 - npm installation audit reported zero known vulnerabilities at installation time.
 - Browser, pointer, keyboard, mobile, accessibility, save recovery, and visual checks remain unverified.
 - This milestone is not ready for CrazyGames submission.
+
+## Game-screen redesign
+
+Replaced the website-style header, introductory copy, and framed card with a full-screen game HUD. Enlarged tube/orb rendering, added an animated first-level hand and target ring, animated legal transfers, and restyled pause/results/garden screens. Tutorial targets are derived from the current board, so Undo/Restart restore the appropriate guidance. Reduced-motion preferences disable looping guide motion.
+
+Six rule tests passed. Production build passed with the existing large-chunk warning. The browser preview tool timed out; rendered desktop/mobile appearance and pointer playtesting remain unverified.
