@@ -65,3 +65,9 @@ All 39 existing tests pass, including illegal-move board preservation. Actual vi
 Loader now displays actual completion of four milestones: artwork decode, game-module import, board preparation, and first rendered frame. The percentage is explicitly stage-based, not downloaded bytes. Loading failures expose a retry action. Added levels 31–60 with at least eight color transitions per initial board; original levels 1–30 and their saved progress remain compatible. Increased mixing is an authoring heuristic, not proof of human difficulty.
 
 69 tests pass, including every solution replay, board uniqueness/counts, and shop/reward checks. Production build passes. Verified the first 25 generated layouts exactly match the prior version. Browser startup timing and difficulty playtesting remain unverified.
+
+## Embedded-player sizing fix
+
+Removed gameplay minimum heights that forced portal scrolling. The board flexes within the iframe; compact-height HUD and controls reserve room for the puzzle. Tube layout chooses rows/columns using both dimensions and fits tube length to ball radius. Pause layout also has a compact-height variant.
+
+Verified the production build in headless Microsoft Edge at 1166x594, 800x450, 360x640, 390x844 and 640x360: no page scrolling, all tested gameplay buttons within bounds, no JavaScript errors. Inspected final screenshots at 360x640 and 800x450. Numeric results are in reports/embedded-layout.json. Tests cover initial gameplay layout, not every menu, level or device; CrazyGames portal re-upload testing is still needed. Production build and all 69 existing automated tests pass.

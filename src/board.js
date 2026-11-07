@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import {drawMarble} from './marble';
+import {boardLayout} from './layout';
 
 export const COLORS=[0xe76539,0x259c9b,0xe6b537,0x4279c5,0x8baf50,0xd67e9c];
 export class Board extends Phaser.Scene {
@@ -26,8 +27,8 @@ export class Board extends Phaser.Scene {
   }
   return this.add.container(x,y,items);
  }
- paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const density=this.bridge.density||1;const w=this.scale.width/density,h=this.scale.height/density;const cols=w<600?(board.length>8?5:board.length>6?4:3):Math.min(8,board.length);const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7,(gap-30)/2),tw=r*2+22;this.positions=[];this.topOrbs=[];this.tubeVisuals=[];
- board.forEach((tube,i)=>{const visualStart=this.children.list.length;const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+45))/2+35+row*(th+45);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
+ paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const density=this.bridge.density||1;const w=this.scale.width/density,h=this.scale.height/density;const {cols,rows,gap,th,r}=boardLayout(w,h,board.length),tw=r*2+22;this.positions=[];this.topOrbs=[];this.tubeVisuals=[];
+ board.forEach((tube,i)=>{const visualStart=this.children.list.length;const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+90))/2+62+row*(th+90);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
  g.fillStyle(0x76a79b,.18);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);
  g.fillStyle(0xffffff,.28);g.fillRoundedRect(x-tw/2+6,y+5,tw-12,th-12,(tw-12)/2);
  g.lineStyle(3,selected===i?0xcc8a29:complete?0x398b76:0x70978c,.9);
@@ -43,7 +44,7 @@ export class Board extends Phaser.Scene {
  this.tubeVisuals[i]=this.add.container(0,0,this.children.list.slice(visualStart));
  const zone=this.add.zone(x,y+th/2-15,gap-8,th+55).setInteractive({useHandCursor:true});zone.on('pointerdown',p=>{if(!blocked)this.down={i,x:p.x,y:p.y};});zone.on('pointerup',p=>{const d=this.down;if(blocked||!d)return;if(d.i!==i&&Math.hypot(p.x-d.x,p.y-d.y)>8)this.bridge.transfer(d.i,i);else this.bridge.select(i);this.down=null;});
  });
- if(guide&&!blocked){const target=selected===guide[0]?guide[1]:guide[0],p=this.positions[target];const ring=this.add.circle(p.x,p.y-8,38,0xffffff,0).setStrokeStyle(3,0xcf8530,.85);const hand=this.add.text(p.x+10,p.y+6,'☝',{fontFamily:'Arial',fontSize:'58px',color:'#ffffff',stroke:'#344479',strokeThickness:5}).setOrigin(.3,0);if(!matchMedia('(prefers-reduced-motion: reduce)').matches){this.tweens.add({targets:hand,y:hand.y+15,duration:620,yoyo:true,repeat:-1,ease:'Sine.inOut'});this.tweens.add({targets:ring,scale:1.25,alpha:.2,duration:900,yoyo:true,repeat:-1});}}
+ if(guide&&!blocked){const target=selected===guide[0]?guide[1]:guide[0],p=this.positions[target];const ring=this.add.circle(p.x,p.y-8,p.r+8,0xffffff,0).setStrokeStyle(3,0xcf8530,.85);const hand=this.add.text(p.x+10,p.y+6,'☝',{fontFamily:'Arial',fontSize:`${Math.max(28,p.r*1.9)}px`,color:'#ffffff',stroke:'#344479',strokeThickness:5}).setOrigin(.3,0);if(!matchMedia('(prefers-reduced-motion: reduce)').matches){this.tweens.add({targets:hand,y:hand.y+15,duration:620,yoyo:true,repeat:-1,ease:'Sine.inOut'});this.tweens.add({targets:ring,scale:1.25,alpha:.2,duration:900,yoyo:true,repeat:-1});}}
  }
  reject(index){
   const tube=this.tubeVisuals?.[index],p=this.positions?.[index];if(!tube||!p)return;
