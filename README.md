@@ -16,9 +16,9 @@ npm run preview
 
 ## Current milestone
 
-First playable slice: five authored, solution-verified introductory levels; mouse/touch tap and drag input; keyboard input; unlimited undo; restart; one free assistance tube; local saving; symbol mode; crystal collection preview; adaptive board; pause on tab hiding.
+First playable slice: 30 solution-verified levels with three to six colors; mouse/touch tap and drag input; keyboard input; unlimited undo; restart; one free assistance tube; local saving; symbol mode; crystal collection preview; adaptive board; pause on tab hiding.
 
-This is an early development build, not a finished CrazyGames submission. The full campaign, Daily Prism, mystery orbs, coins/cosmetics, audio, richer animations, robust save migration, and platform verification remain planned. Browser/device playtesting has not yet been completed.
+This is an early development build, not a finished CrazyGames submission. The full 150-level campaign, Daily Prism, mystery orbs, cosmetics, richer animations, robust save recovery, and platform verification remain planned. Elapsed time, synthesized sound, win rewards, and saved coins are implemented. Browser/device playtesting has not yet been completed.
 
 Controls: tap a source and destination or drag between tubes. Focus the board to use arrows and Enter/Space; Z undoes and Escape pauses. Orb symbols can be enabled below the board.
 

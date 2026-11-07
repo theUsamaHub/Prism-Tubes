@@ -1,20 +1,20 @@
 import Phaser from 'phaser';
 
-export const COLORS=[0xe76539,0x259c9b,0xe6b537];
+export const COLORS=[0xe76539,0x259c9b,0xe6b537,0x4279c5,0x8baf50,0xd67e9c];
 export class Board extends Phaser.Scene {
  constructor(bridge){super('board');this.bridge=bridge;}
  create(){this.bridge.scene=this;this.paint();this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
  orb(x,y,r,c,symbols){
   const key=`enamel-${c}`;
   if(!this.textures.exists(key)){
-   const texture=this.textures.createCanvas(key,160,160),ctx=texture.context;
-   const shades=[['#ffd1a1','#ef8250','#d3512f','#883222'],['#a5efdb','#40b7ac','#188381','#125759'],['#fff1ad','#ecc64d','#c59122','#84601c']][c];
+   const texture=this.textures.createCanvas(key,512,512),ctx=texture.context;ctx.scale(3.2,3.2);
+   const shades=[['#ffd1a1','#ef8250','#d3512f','#883222'],['#a5efdb','#40b7ac','#188381','#125759'],['#fff1ad','#ecc64d','#c59122','#84601c'],['#d3edff','#77b0e5','#3a77ba','#254b80'],['#e8f2b8','#b1c96b','#759744','#456432'],['#ffe1e7','#e9a8b5','#c87492','#8e4d6c']][c];
    ctx.beginPath();ctx.arc(80,80,72,0,Math.PI*2);
    const fill=ctx.createRadialGradient(55,43,6,86,88,86);
    fill.addColorStop(0,shades[0]);fill.addColorStop(.35,shades[1]);fill.addColorStop(.78,shades[2]);fill.addColorStop(1,shades[3]);
-   ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=shades[3];ctx.lineWidth=2;ctx.stroke();
+   ctx.fillStyle=fill;ctx.fill();
    ctx.beginPath();ctx.ellipse(55,37,17,8,-.5,0,Math.PI*2);ctx.fillStyle='rgba(255,255,242,.65)';ctx.fill();
-   ctx.beginPath();ctx.arc(80,80,65,.25,1.25);ctx.strokeStyle='rgba(255,244,208,.25)';ctx.lineWidth=3;ctx.stroke();texture.refresh();
+   texture.refresh();texture.setFilter(Phaser.Textures.FilterMode.LINEAR);
   }
   const shadow=this.add.ellipse(2,r*.91,r*1.75,r*.42,0x173f39,.18);
   const ball=this.add.image(0,0,key).setDisplaySize(r*2.22,r*2.22);
@@ -22,12 +22,12 @@ export class Board extends Phaser.Scene {
   if(symbols){const mark=this.add.graphics();mark.lineStyle(Math.max(2,r*.095),0xfff8dc,.94);const d=r*.22;
    if(c===0)mark.strokeCircle(0,r*.14,d);
    if(c===1)mark.strokeRoundedRect(-d,r*.14-d,d*2,d*2,2);
-   if(c===2)mark.strokeTriangle(0,r*.14-d*1.2,-d*1.1,r*.14+d,d*1.1,r*.14+d);
+   if(c===3){mark.lineBetween(-d,0,d,r*.28);mark.lineBetween(d,0,-d,r*.28);}if(c===4){mark.lineBetween(-d,r*.14,d,r*.14);mark.lineBetween(0,r*.14-d,0,r*.14+d);}if(c===5){mark.lineBetween(-d,0,d,0);mark.lineBetween(-d,r*.28,d,r*.28);}if(c===2)mark.strokeTriangle(0,r*.14-d*1.2,-d*1.1,r*.14+d,d*1.1,r*.14+d);
    items.push(mark);
   }
   return this.add.container(x,y,items);
  }
- paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const w=this.scale.width,h=this.scale.height;const cols=w<600?3:board.length;const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7),tw=r*2+22;this.positions=[];this.topOrbs=[];
+ paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const w=this.scale.width,h=this.scale.height;const cols=w<600?(board.length>8?5:board.length>6?4:3):Math.min(8,board.length);const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7,(gap-30)/2),tw=r*2+22;this.positions=[];this.topOrbs=[];
  board.forEach((tube,i)=>{const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+45))/2+35+row*(th+45);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
  g.fillStyle(0x76a79b,.18);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);
  g.fillStyle(0xffffff,.28);g.fillRoundedRect(x-tw/2+6,y+5,tw-12,th-12,(tw-12)/2);

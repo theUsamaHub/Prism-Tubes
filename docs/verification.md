@@ -23,3 +23,9 @@ The six existing puzzle-rule tests pass. Build verification covers compilation o
 Added a dedicated results panel with animated stars, custom coin artwork, crystal reward, collection progress, saved coin total, and Continue action. First wins award 30 coins plus 10 per new star. Replays award only star improvements; old saves migrate their previously earned balance. Completion records and coin balances save together. Tab hiding after completion no longer replaces results with the pause screen.
 
 Ten automated tests pass, including first rewards, replay/reload duplicate prevention, improved-star rewards, old-save migration, and cross-level accumulation. Production build passes with the existing bundle-size warning. Visual results-screen inspection and browser interaction remain unverified. Coins are saved currency; a cosmetic shop is still pending.
+
+## Ball polish, pause menu, and 30-level campaign
+
+Ball textures now use a 512px canvas with linear filtering and no dark outline. The pause menu is a compact panel over the blurred board, with level/move/time statistics, Resume, Restart, sound, and symbol settings. Campaign expanded to 30 frozen layouts, retaining the first five, with three to six colors and distinct symbols. Seeded reverse-shuffle tooling lives in scripts/generate-levels.mjs.
+
+All 36 tests pass, covering each solution witness, exact color counts, unique tube-order-normalized boards, and reward behavior. Automated solvability does not establish perceived difficulty: difficulty pacing, visual quality, later-level mobile layouts, and menu interaction still require browser playtesting. Full 150-level scope remains pending.
