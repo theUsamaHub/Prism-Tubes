@@ -53,3 +53,9 @@ Existing 39 gameplay/reward/shop tests pass. Actual listening balance and high-d
 Replaced the garden scrolling grid with six crystals per page, previous/next controls, and viewport-sized layout including a short-landscape variant. Changed music to an original 128 BPM loop with kick, snare, hi-hat, bass, and arpeggio. Music-on explicitly initializes/resumes audio and attempts playback immediately; fresh-page autoplay still depends on browser permission. Music now continues through in-game menus (including pause) and fades out when hidden, following the user's always-on preference.
 
 Production build passes. Browser layout and listening checks are still pending.
+
+## Invalid-move feedback
+
+Invalid destinations now shake with their contents and flash red, while preserving the board, move count, and current selection. Existing error audio is retained. The hint distinguishes full tubes from color mismatches. A short vibration pattern is requested where supported, rate-limited to prevent repeated buzzing. Reduced-motion settings suppress shaking. Repeat attempts replace the feedback rather than accumulating tweens.
+
+All 39 existing tests pass, including illegal-move board preservation. Actual visual feedback and phone vibration remain to be checked on devices.
