@@ -59,3 +59,9 @@ Production build passes. Browser layout and listening checks are still pending.
 Invalid destinations now shake with their contents and flash red, while preserving the board, move count, and current selection. Existing error audio is retained. The hint distinguishes full tubes from color mismatches. A short vibration pattern is requested where supported, rate-limited to prevent repeated buzzing. Reduced-motion settings suppress shaking. Repeat attempts replace the feedback rather than accumulating tweens.
 
 All 39 existing tests pass, including illegal-move board preservation. Actual visual feedback and phone vibration remain to be checked on devices.
+
+## Startup progress and 60 levels
+
+Loader now displays actual completion of four milestones: artwork decode, game-module import, board preparation, and first rendered frame. The percentage is explicitly stage-based, not downloaded bytes. Loading failures expose a retry action. Added levels 31–60 with at least eight color transitions per initial board; original levels 1–30 and their saved progress remain compatible. Increased mixing is an authoring heuristic, not proof of human difficulty.
+
+69 tests pass, including every solution replay, board uniqueness/counts, and shop/reward checks. Production build passes. Verified the first 25 generated layouts exactly match the prior version. Browser startup timing and difficulty playtesting remain unverified.

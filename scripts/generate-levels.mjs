@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 let seed=82417;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 const levels=[],seen=new Set();
-for(let index=5;index<30;index++){
+for(let index=5;index<60;index++){
  const colors=index<10?3:index<17?4:index<24?5:6;
  for(let attempt=0;attempt<500;attempt++){
   const board=Array.from({length:colors+2},(_,i)=>i<colors?Array(4).fill(i):[]),history=[];
@@ -22,6 +22,8 @@ for(let index=5;index<30;index++){
    board.splice(0,board.length,...o.next);visited.add(JSON.stringify(board));history.push([o.b,o.a]);
   }
   const mixed=board.filter(t=>new Set(t).size>1).length;
+  const transitions=board.reduce((sum,t)=>sum+t.slice(1).filter((c,i)=>c!==t[i]).length,0);
+  if(index>=30&&transitions<8)continue;
   const key=board.map(t=>t.join(',')).sort().join('|');
   if(mixed<Math.min(colors,2+Math.floor(index/12))||seen.has(key))continue;
   seen.add(key);levels.push({board,path:history.reverse()});break;

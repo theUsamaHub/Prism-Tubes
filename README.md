@@ -16,7 +16,7 @@ npm run preview
 
 ## Current milestone
 
-First playable slice: 30 solution-verified levels with three to six colors; mouse/touch tap and drag input; keyboard input; unlimited undo; restart; one free assistance tube; local saving; symbol mode; crystal collection preview; adaptive board; pause on tab hiding.
+First playable slice: 60 solution-verified levels with three to six colors; mouse/touch tap and drag input; keyboard input; unlimited undo; restart; one free assistance tube; local saving; symbol mode; crystal collection preview; adaptive board; pause on tab hiding.
 
 This is an early development build, not a finished CrazyGames submission. The full 150-level campaign, Daily Prism, mystery orbs, cosmetics, richer animations, robust save recovery, and platform verification remain planned. Elapsed time, synthesized sound, win rewards, and saved coins are implemented. Browser/device playtesting has not yet been completed.
 

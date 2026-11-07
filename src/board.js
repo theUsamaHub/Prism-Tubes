@@ -4,7 +4,7 @@ import {drawMarble} from './marble';
 export const COLORS=[0xe76539,0x259c9b,0xe6b537,0x4279c5,0x8baf50,0xd67e9c];
 export class Board extends Phaser.Scene {
  constructor(bridge){super('board');this.bridge=bridge;}
- create(){this.cameras.main.setOrigin(0,0).setZoom(this.bridge.density||1);this.bridge.scene=this;this.paint();this.game.events.once('postrender',()=>{clearTimeout(window.prismBootTimeout);window.prismBootMetrics={readyMs:Math.round(performance.now()),initializationMs:Math.round(performance.now()-(window.prismBootStarted||0))};document.getElementById('boot-screen')?.remove();});this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
+ create(){this.cameras.main.setOrigin(0,0).setZoom(this.bridge.density||1);this.bridge.scene=this;this.paint();window.prismMark?.('board','Puzzle prepared');this.game.events.once('postrender',()=>window.prismMark?.('frame','First frame rendered'));this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
  orb(x,y,r,c,symbols){
   const style=this.bridge.state.ballStyle||'glass';const key=`marble-${style}-${c}`;
   if(!this.textures.exists(key)){
