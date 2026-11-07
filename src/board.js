@@ -6,10 +6,10 @@ export class Board extends Phaser.Scene {
  constructor(bridge){super('board');this.bridge=bridge;}
  create(){this.bridge.scene=this;this.paint();this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
  orb(x,y,r,c,symbols){
-  const key=`glass-marble-${c}`;
+  const style=this.bridge.state.ballStyle||'glass';const key=`marble-${style}-${c}`;
   if(!this.textures.exists(key)){
    const texture=this.textures.createCanvas(key,512,512);
-   drawMarble(texture.context,512,COLORS[c]);
+   drawMarble(texture.context,512,COLORS[c],style);
    texture.refresh();texture.setFilter(Phaser.Textures.FilterMode.LINEAR);
   }
   const shadow=this.add.ellipse(2,r*.91,r*1.5,r*.25,0x173f39,.22);
