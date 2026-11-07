@@ -24,7 +24,7 @@ export function drawMarble(ctx,size,color,style='glass'){
  ctx.save();ctx.translate(size/2,size/2);ctx.scale(radius,radius);ctx.lineWidth=.025;ctx.strokeStyle='rgba(255,255,255,.42)';ctx.beginPath();ctx.arc(0,0,.91,.32,1.28);ctx.stroke();ctx.restore();
  if(style==='candy'){
  ctx.save();ctx.translate(size/2,size/2);ctx.scale(radius,radius);ctx.beginPath();ctx.arc(0,0,.97,0,Math.PI*2);ctx.clip();
- for(let arm=0;arm<7;arm++){ctx.beginPath();for(let step=0;step<=80;step++){const r=step/80,angle=arm*Math.PI*2/7+r*3.5;const x=Math.cos(angle)*r,y=Math.sin(angle)*r;if(step===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.lineWidth=.09;ctx.strokeStyle='rgba(255,248,221,.7)';ctx.stroke();}ctx.restore();
+ for(let arm=0;arm<4;arm++){ctx.beginPath();for(let step=0;step<=80;step++){const r=step/80,angle=arm*Math.PI*2/4+r*2.8;const x=Math.cos(angle)*r,y=Math.sin(angle)*r;if(step===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.lineWidth=.16;ctx.strokeStyle='rgba(255,248,221,.7)';ctx.stroke();}ctx.restore();
  }
 }
 function drawGem(ctx,size,color){

@@ -41,3 +41,9 @@ Production build and 36 existing gameplay/reward tests pass. These checks do not
 Coins now purchase persistent cosmetic designs: Cut Gemstones (150) and Swirl Candies (300), alongside the free Glass Marbles. Open the shop using the HUD coin balance. Previews use the same drawing function as gameplay. Purchases immediately equip, deduct once, reject insufficient funds, and preserve ownership across levels and reloads. The shop pauses gameplay/time; color-symbol settings remain optional.
 
 All 39 tests and the production build pass. Browser visual checks and end-to-end purchase interaction remain pending.
+
+## Looping music and display scaling
+
+Added an original 32-second synthesized ambient loop with independent saved music control. Music starts after interaction, continues across levels and menus, and fades out while paused or hidden. Pickup, placement, and completion effects have increased levels. Rendering now uses an explicitly scaled canvas/camera up to 2x device density (Phaser 3.90 does not expose a resolution config), filtered 128px textures downsampled from 512px artwork, and simpler wider candy swirls to reduce aliasing.
+
+Existing 39 gameplay/reward/shop tests pass. Actual listening balance and high-density rendering/input behavior still need browser/device verification.

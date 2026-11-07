@@ -4,12 +4,15 @@ import {drawMarble} from './marble';
 export const COLORS=[0xe76539,0x259c9b,0xe6b537,0x4279c5,0x8baf50,0xd67e9c];
 export class Board extends Phaser.Scene {
  constructor(bridge){super('board');this.bridge=bridge;}
- create(){this.bridge.scene=this;this.paint();this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
+ create(){this.cameras.main.setOrigin(0,0).setZoom(this.bridge.density||1);this.bridge.scene=this;this.paint();this.scale.on('resize',()=>this.paint());this.input.on('pointerup',()=>{this.down=null;});}
  orb(x,y,r,c,symbols){
   const style=this.bridge.state.ballStyle||'glass';const key=`marble-${style}-${c}`;
   if(!this.textures.exists(key)){
-   const texture=this.textures.createCanvas(key,512,512);
-   drawMarble(texture.context,512,COLORS[c],style);
+   const source=document.createElement('canvas');source.width=source.height=512;
+   drawMarble(source.getContext('2d'),512,COLORS[c],style);
+   const texture=this.textures.createCanvas(key,128,128);
+   texture.context.imageSmoothingEnabled=true;texture.context.imageSmoothingQuality='high';
+   texture.context.drawImage(source,0,0,128,128);
    texture.refresh();texture.setFilter(Phaser.Textures.FilterMode.LINEAR);
   }
   const shadow=this.add.ellipse(2,r*.91,r*1.5,r*.25,0x173f39,.22);
@@ -23,7 +26,7 @@ export class Board extends Phaser.Scene {
   }
   return this.add.container(x,y,items);
  }
- paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const w=this.scale.width,h=this.scale.height;const cols=w<600?(board.length>8?5:board.length>6?4:3):Math.min(8,board.length);const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7,(gap-30)/2),tw=r*2+22;this.positions=[];this.topOrbs=[];
+ paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const density=this.bridge.density||1;const w=this.scale.width/density,h=this.scale.height/density;const cols=w<600?(board.length>8?5:board.length>6?4:3):Math.min(8,board.length);const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7,(gap-30)/2),tw=r*2+22;this.positions=[];this.topOrbs=[];
  board.forEach((tube,i)=>{const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+45))/2+35+row*(th+45);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
  g.fillStyle(0x76a79b,.18);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);
  g.fillStyle(0xffffff,.28);g.fillRoundedRect(x-tw/2+6,y+5,tw-12,th-12,(tw-12)/2);
