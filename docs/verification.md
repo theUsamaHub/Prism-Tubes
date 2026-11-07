@@ -11,3 +11,9 @@
 Replaced the website-style header, introductory copy, and framed card with a full-screen game HUD. Enlarged tube/orb rendering, added an animated first-level hand and target ring, animated legal transfers, and restyled pause/results/garden screens. Tutorial targets are derived from the current board, so Undo/Restart restore the appropriate guidance. Reduced-motion preferences disable looping guide motion.
 
 Six rule tests passed. Production build passed with the existing large-chunk warning. The browser preview tool timed out; rendered desktop/mobile appearance and pointer playtesting remain unverified.
+
+## Requested presentation additions
+
+Added a count-up clock (no countdown or star penalty), persistent elapsed time, thicker layered glass tubes, a win ribbon/confetti with reduced-motion support, and original Web Audio effects with a saved sound toggle. Sound initializes after interaction and stops when paused/hidden. Clock pauses in menus and on completion, and resets on restart/new level.
+
+The six existing puzzle-rule tests pass. Build verification covers compilation only; actual listening, timer lifecycle, and rendered celebration/tube checks still require browser playtesting.

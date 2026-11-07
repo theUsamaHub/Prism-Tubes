@@ -111,3 +111,7 @@ Required QA covers legal/illegal moves, wins, Undo after completion effects, ass
 
 Final deliverables: source, install/dev/build instructions, playable production build, controls, architecture notes, licensing inventory, verified QA results and remaining manual checks, and a CrazyGames submission checklist. Release only after blocking issues are resolved.
 
+
+## Approved follow-up changes
+
+The user requested an elapsed-time display, refined glass tubes, win ribbons/celebration, and sound effects. The timer is informational, with no countdown, failure condition, or effect on stars. Effects are originally synthesized through Web Audio; no imported audio assets are needed.

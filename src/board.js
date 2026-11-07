@@ -28,7 +28,17 @@ export class Board extends Phaser.Scene {
   return this.add.container(x,y,items);
  }
  paint(){if(!this.add||this.moving)return;this.tweens.killAll();this.children.removeAll();const {board,selected,symbols,guide,blocked,focus}=this.bridge.state;const w=this.scale.width,h=this.scale.height;const cols=w<600?3:board.length;const rows=Math.ceil(board.length/cols);const gap=Math.min(150,w/(cols+.35));const th=Math.min(285,(h-65)/rows-40);const r=Math.min(29,(th-25)/8.7),tw=r*2+22;this.positions=[];this.topOrbs=[];
- board.forEach((tube,i)=>{const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+45))/2+35+row*(th+45);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}g.fillStyle(0xffffff,.22);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);g.lineStyle(selected===i?3:2,selected===i?0xe59b36:complete?0x398b76:0x557e76,selected===i?.95:.55);g.beginPath();g.moveTo(x-tw/2,y);g.lineTo(x-tw/2,y+th-tw/2);g.arc(x,y+th-tw/2,tw/2,Math.PI,0,true);g.lineTo(x+tw/2,y);g.strokePath();g.lineStyle(5,0xffffff,.16);g.lineBetween(x-tw/2+7,y+15,x-tw/2+7,y+th-tw/2);g.lineStyle(3,0xffffff,.75);g.strokeEllipse(x,y,tw+5,9);
+ board.forEach((tube,i)=>{const row=Math.floor(i/cols),count=Math.min(cols,board.length-row*cols),x=w/2+(i%cols-(count-1)/2)*gap,y=(h-rows*(th+45))/2+35+row*(th+45);this.positions.push({x,y,th,r});const g=this.add.graphics();const complete=tube.length===4&&tube.every(c=>c===tube[0]);g.fillStyle(0x294e46,.22);g.fillEllipse(x,y+th+13,tw+22,17);if(complete){g.fillStyle(0x8cffe0,.08);g.fillRoundedRect(x-tw/2-8,y-8,tw+16,th+18,30);}// Layered glass: colored edges, inset wall, rolled lip and weighted base.
+ g.fillStyle(0x76a79b,.18);g.fillRoundedRect(x-tw/2,y,tw,th,tw/2);
+ g.fillStyle(0xffffff,.28);g.fillRoundedRect(x-tw/2+6,y+5,tw-12,th-12,(tw-12)/2);
+ g.lineStyle(3,selected===i?0xcc8a29:complete?0x398b76:0x70978c,.9);
+ g.beginPath();g.moveTo(x-tw/2,y+2);g.lineTo(x-tw/2,y+th-tw/2);g.arc(x,y+th-tw/2,tw/2,Math.PI,0,true);g.lineTo(x+tw/2,y+2);g.strokePath();
+ g.lineStyle(4,0xffffff,.8);g.lineBetween(x-tw/2+7,y+17,x-tw/2+7,y+th-tw/2-5);
+ g.lineStyle(2,0x477d70,.22);g.lineBetween(x+tw/2-6,y+15,x+tw/2-6,y+th-tw/2);
+ g.lineStyle(5,0x699b8d,.3);g.beginPath();g.arc(x,y+th-tw/2-3,tw/2-6,.12,Math.PI-.12);g.strokePath();
+ g.fillStyle(0xc0d6c9,1);g.fillEllipse(x,y,tw+9,13);g.lineStyle(2,0x658f80,.8);g.strokeEllipse(x,y,tw+9,13);
+ g.fillStyle(0x5c8d7e,.28);g.fillEllipse(x,y,tw-5,6);g.lineStyle(2,0xffffff,.95);g.strokeEllipse(x,y-2,tw+5,9);
+
  tube.forEach((c,j)=>{const cy=y+th-r-9-j*(r*2+4);const o=this.orb(x,cy,r,c,symbols);if(j===tube.length-1)this.topOrbs[i]=o;if(selected===i&&j===tube.length-1){o.y=y-r-14;if(!matchMedia('(prefers-reduced-motion: reduce)').matches)this.tweens.add({targets:o,y:o.y-6,duration:700,yoyo:true,repeat:-1,ease:'Sine.inOut'});}});
  if(complete)this.add.text(x,y+th+26,'✦',{fontSize:'20px',color:'#398b76'}).setOrigin(.5);if(focus===i){g.lineStyle(2,0xffffff,.6);g.strokeEllipse(x,y+th+15,tw+10,15);}
  const zone=this.add.zone(x,y+th/2-15,gap-8,th+55).setInteractive({useHandCursor:true});zone.on('pointerdown',p=>{if(!blocked)this.down={i,x:p.x,y:p.y};});zone.on('pointerup',p=>{const d=this.down;if(blocked||!d)return;if(d.i!==i&&Math.hypot(p.x-d.x,p.y-d.y)>8)this.bridge.transfer(d.i,i);else this.bridge.select(i);this.down=null;});
