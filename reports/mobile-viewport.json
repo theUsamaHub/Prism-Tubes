@@ -1,0 +1,130 @@
+[
+  {
+    "width": 350,
+    "height": 767,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 350,
+    "height": 767,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 667,
+    "height": 375,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 667,
+    "height": 375,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  },
+  {
+    "width": 350,
+    "height": 900,
+    "level": 13,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 7
+  },
+  {
+    "width": 350,
+    "height": 900,
+    "level": 60,
+    "viewportFits": true,
+    "tubesFit": true,
+    "count": 9
+  }
+]
