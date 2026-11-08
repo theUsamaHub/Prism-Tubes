@@ -1,0 +1,194 @@
+[
+  {
+    "width": 1166,
+    "height": 594,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 1166,
+    "height": 594,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 1166,
+    "height": 594,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 1166,
+    "height": 594,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 800,
+    "height": 450,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 800,
+    "height": 450,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 800,
+    "height": 450,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 800,
+    "height": 450,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 640,
+    "height": 360,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 640,
+    "height": 360,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 640,
+    "height": 360,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 640,
+    "height": 360,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 500,
+    "name": "pause",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 500,
+    "name": "shop",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 500,
+    "name": "garden",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 500,
+    "name": "win",
+    "scroll": false,
+    "controlsFit": true,
+    "errors": []
+  }
+]
